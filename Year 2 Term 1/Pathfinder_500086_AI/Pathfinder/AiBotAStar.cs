@@ -6,70 +6,97 @@ using System.Threading.Tasks;
 
 namespace Pathfinder
 {
-    class AiBotAStar: AiBotBase
+    class AiBotAStar : AiBotBase
     {
-        int startVertex;
-        int targetVertex;
-        double[,] graph;
-        Dictionary<int, double> g_n;
-        Dictionary<int, double> f_n;
-        public AiBotAStar(int x, int y, double [,] graphMatrix): base(x,y)
+        Coord2 mStartPos;
+        Coord2 mTargetPos;
+        int mGridSize;
+        double[,] mGraph;
+        List<Node> nodes;
+
+        public AiBotAStar(int x, int y, double[,] pGraphMatrix, int pGridSize) : base(x, y)
         {
-            startVertex = x;
-            targetVertex = y;
-            graph = graphMatrix;
-            g_n = new Dictionary<int, double>();
-            f_n = new Dictionary<int, double>();
+            mStartPos = new Coord2(x, y);
+            mTargetPos = new Coord2(x, y);
+            mGraph = pGraphMatrix;
+            mGridSize = pGridSize;
+            nodes = new List<Node>();
         }
         protected override void ChooseNextGridLocation(Level level, Player plr)
         {
-            
+
         }
         public void Build()
         {
-            int startX = 0, startY = 0;
-            int targetX = 2, targetY = 2;
-            g_n.Add(startVertex, 0);
+            Node startNode = new Node();
+            startNode.parent = -1;
+            startNode.level = 0;
+            startNode.g_n = 0;
+            startNode.position = mStartPos;
+            startNode.index = PositionToVertex(startNode.position);
+            startNode.h_n = CalculateH_n(startNode.position, mTargetPos);
+            startNode.f_n = startNode.g_n + startNode.h_n;
 
-            double h_n = Math.Sqrt(Convert.ToDouble(((targetX - startX) * (targetX - startX)) + ((targetY - startY) * (targetY - startY))));
+            nodes.Add(startNode);
 
-            f_n.Add(startVertex, 0 + h_n);
+            Node currentNode = startNode;
 
-            int currentVetrex = startVertex;
-
-            while (f_n.Count > 0)
+            while (nodes.Count > 0)
             {
 
-                for (int i = 0; i < graph.GetLength(1); i++)
+                for (int i = 0; i < mGraph.GetLength(1); i++)
                 {
-                    if (graph[currentVetrex, i] <= 1)
+                    if (mGraph[currentNode.index, i] <= 1)
                     {
-                        g_n.Add(i, graph[currentVetrex, i]);
+                        Node newNode = new Node();
 
-                        int i_x = i % graph.GetLength(1);
-                        int i_y = i / graph.GetLength(1);
+                        newNode.parent = currentNode.index;
+                        newNode.g_n = currentNode.g_n + mGraph[currentNode.index, i];
+                        newNode.level = currentNode.level + 1;
+                        newNode.position = VertexToPosition(i);
+                        newNode.h_n = CalculateH_n(newNode.position, mTargetPos);
+                        newNode.f_n = newNode.g_n + newNode.h_n;
 
-                        h_n = Math.Sqrt(Convert.ToDouble(((targetX - i_x) * (targetX - i_x)) + ((targetY - i_y) * (targetY - i_y))));
-
-                        f_n.Add(i, g_n[i] + h_n);
+                        nodes.Add(newNode);
+                    }
+                    nodes.Remove(currentNode);
+                    currentNode = getMinVertex();
+                    if (currentNode.position == mTargetPos)
+                    {
+                        break;
                     }
                 }
-                currentVetrex = getMinVertex();
             }
         }
-        private int getMinVertex()
-        {
-            double min = int.MaxValue;
-            int v = -1;
-            foreach (KeyValuePair<int, double> f in f_n)
+            private Node getMinVertex()
             {
-                if (f.Value < min)
+                double min = int.MaxValue;
+                Node v = null;
+                foreach (Node n in nodes)
                 {
-                    min = f.Value;
-                    v = f.Key;
+                    if (n.f_n < min)
+                    {
+                        min = n.f_n;
+                        v = n;
+                    }
                 }
+                return v;
             }
-            return v;
-        }
+            private int PositionToVertex(Coord2 pPos)
+            {
+                return pPos.Y * mGridSize + pPos.X;
+            }
+            private Coord2 VertexToPosition(int pIndex)
+            {
+                Coord2 Pos;
+                Pos.X = pIndex % mGridSize;
+                Pos.Y = pIndex / mGridSize;
+
+                return Pos;
+            }
+            private double CalculateH_n(Coord2 pStart, Coord2 pTarget)
+            {
+                return Math.Sqrt(Convert.ToDouble(((pTarget.X - pStart.X) * (pTarget.X - pStart.X)) + ((pTarget.Y - pStart.Y) * (pTarget.Y - pStart.Y))));
+            }
     }
 }
