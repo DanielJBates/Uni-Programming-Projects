@@ -56,7 +56,7 @@ namespace Pathfinder
             //instantiate bot and player objects
             Graph g = new Graph(level);
             double[,] graphMatrix = g.GenerateGraph();
-            bot = new AiBotSimple(10, 20); //new AiBotRandom(10, 20);
+            bot = new AiBotAStar(10, 20, graphMatrix); //new AiBotRandom(10, 20);
             player = new Player(30, 20);
         }
 
