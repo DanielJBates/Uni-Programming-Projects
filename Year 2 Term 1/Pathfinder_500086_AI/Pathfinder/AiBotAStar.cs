@@ -51,7 +51,7 @@ namespace Pathfinder
 
                 for (int i = 0; i < mGraph.GetLength(1); i++)
                 {
-                    if (mGraph[currentNode.index, i] <= 1)
+                    if (mGraph[currentNode.index, i] >= 1)
                     {
                         Node newNode = new Node();
 
