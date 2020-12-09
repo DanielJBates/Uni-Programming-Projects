@@ -52,7 +52,7 @@ namespace Pathfinder
             TargetElapsedTime = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / TargetFrameRate);
             //load level map
             level = new Level();
-            level.Loadmap("../../../Content/0.txt");
+            level.Loadmap("../../../Content/1.txt");
             //instantiate bot and player objects
             Graph g = new Graph(level);
             double[,] graphMatrix = g.GenerateGraph();
