@@ -60,12 +60,16 @@ namespace Pathfinder
 
                 mNodes.Remove(currentNode);
                 currentNode = getMinVertex();
+                while(!level.ValidPosition(currentNode.position))
+                {
+                    mNodes.Remove(currentNode);
+                    currentNode = getMinVertex();
+                }
                 SetNextGridPosition(currentNode.position, level);
                 if (currentNode.position == mTargetPos)
                 {
                     break;
-                }
-                
+                }                
             }
         }
             private Node getMinVertex()
