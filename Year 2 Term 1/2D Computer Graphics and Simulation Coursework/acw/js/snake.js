@@ -69,75 +69,8 @@ class Snake {
     addChild(pChild) {
         this.mChildren.push(pChild);
     }
-    getHeadPoint() {
-        var x = 0 + this.getChildAt(0).getX();
-        var y = -15 - this.getChildAt(0).getY();
-
-        return new Vector(x, y);
-    }
     //#endregion
-    headBodyCollision() {
-        for(var i = 1; i < this.getNumberOfChildren(); i += 1) {
-            var dx = (this.getChildAt(0).getX() - this.getChildAt(i).getX())
-            var dy = (this.getChildAt(0).getY() - this.getChildAt(i).getY())
-            var distance = Math.sqrt((dx * dx) + (dy * dy))
-
-            if(distance < 15) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-    updateRotation(pDeltaTime, pDirection) {
-        if(pDirection == 'right') {
-            var newRotation = this.getRotation() + (this.getRotationRate() * pDeltaTime);
-            if(newRotation > (360 * Math.PI/180)) {
-                newRotation = newRotation - (360 * Math.PI/180);
-            }
-            this.setRotation(newRotation); 
-            this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).setTransform(Matrix.createRotation(this.getRotation()));
-        }
-        else if(pDirection == 'left') {
-            var newRotation = this.getRotation() - (this.getRotationRate() * pDeltaTime);
-            if(newRotation <  0) {
-                newRotation = newRotation + (360 * Math.PI/180);
-            }
-            this.setRotation(newRotation);
-            this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).setTransform(Matrix.createRotation(this.getRotation()));
-        }
-    }
-    updatePosition(pDeltaTime) { 
-        //#region Head Position Update
-        var newXPosition = ((this.getVelocity() * Math.sin(this.getRotation()) * pDeltaTime));
-        var newYPosition = ((this.getVelocity() * Math.cos(this.getRotation()) * pDeltaTime));
-        
-        this.getChildAt(0).setX(this.getChildAt(0).getX() + newXPosition);
-        this.getChildAt(0).setY(this.getChildAt(0).getY() - newYPosition);
-
-        this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).setTransform(Matrix.createTranslation(this.getChildAt(0)));
-        //#endregion
-
-        //#region Body Positions Update
-        for(var i = 1; i < this.getNumberOfChildren(); i += 1) {
-            var tempVector = this.getChildAt(i).subtract(this.getChildAt(i - 1));
-            tempVector = tempVector.normalise();
-            var newPosition = this.getChildAt(i - 1).add(tempVector.multiply(35));
-            this.getChildAt(i).setX(newPosition.getX());
-            this.getChildAt(i).setY(newPosition.getY());
-
-            this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(i).setTransform(Matrix.createTranslation(this.getChildAt(i)));       
-        }
-        //#endregion        
-    }
-    checkGameOver(pCanvas) {
-        if(this.getChildAt(0).getX() >= (pCanvas.width * 0.5) || this.getChildAt(0).getX() <= -(pCanvas.width * 0.5) || this.getChildAt(0).getY() >= (pCanvas.height * 0.5) || this.getChildAt(0).getY() <= -(pCanvas.height * 0.5)) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
+    
     initialiseSceneGraph(pContext) {
         var snakeTranslationMatrix, snakeRotationMatrix, snakeScaleMatrix;
 
@@ -185,5 +118,89 @@ class Snake {
         snakeTransforms.addChild(snakeTranslate);
 
         this.setSceneGraph(snakeTransforms);
+    }
+
+    //#region Updates
+    updateRotation(pDeltaTime, pDirection) {
+        if(pDirection == 'right') {
+            var newRotation = this.getRotation() + (this.getRotationRate() * pDeltaTime);
+            if(newRotation > (360 * Math.PI/180)) {
+                newRotation = newRotation - (360 * Math.PI/180);
+            }
+            this.setRotation(newRotation); 
+            this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).setTransform(Matrix.createRotation(this.getRotation()));
+        }
+        else if(pDirection == 'left') {
+            var newRotation = this.getRotation() - (this.getRotationRate() * pDeltaTime);
+            if(newRotation <  0) {
+                newRotation = newRotation + (360 * Math.PI/180);
+            }
+            this.setRotation(newRotation);
+            this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).setTransform(Matrix.createRotation(this.getRotation()));
+        }
+    }
+    updatePosition(pDeltaTime) { 
+        //#region Head Position Update
+        var newXPosition = ((this.getVelocity() * Math.sin(this.getRotation()) * pDeltaTime));
+        var newYPosition = ((this.getVelocity() * Math.cos(this.getRotation()) * pDeltaTime));
+        
+        this.getChildAt(0).setX(this.getChildAt(0).getX() + newXPosition);
+        this.getChildAt(0).setY(this.getChildAt(0).getY() - newYPosition);
+
+        this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).setTransform(Matrix.createTranslation(this.getChildAt(0)));
+        //#endregion
+
+        //#region Body Positions Update
+        for(var i = 1; i < this.getNumberOfChildren(); i += 1) {
+            var tempVector = this.getChildAt(i).subtract(this.getChildAt(i - 1));
+            tempVector = tempVector.normalise();
+            var newPosition = this.getChildAt(i - 1).add(tempVector.multiply(35));
+            this.getChildAt(i).setX(newPosition.getX());
+            this.getChildAt(i).setY(newPosition.getY());
+
+            this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(i).setTransform(Matrix.createTranslation(this.getChildAt(i)));       
+        }
+        //#endregion        
+    }
+    //#endregion
+
+    //#region Collisions
+    checkGameOver(pCanvas) {
+        if(this.headBodyCollision() || this.headBoundaryCollision(pCanvas)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }    
+    headBodyCollision() {
+        for(var i = 1; i < this.getNumberOfChildren(); i += 1) {
+            var dx = (this.getChildAt(0).getX() - this.getChildAt(i).getX())
+            var dy = (this.getChildAt(0).getY() - this.getChildAt(i).getY())
+            var distance = Math.sqrt((dx * dx) + (dy * dy))
+
+            if(distance < 15) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    headBoundaryCollision(pCanvas) {
+        if(this.getChildAt(0).getX() >= (pCanvas.width * 0.5) || this.getChildAt(0).getX() <= -(pCanvas.width * 0.5) || this.getChildAt(0).getY() >= (pCanvas.height * 0.5) || this.getChildAt(0).getY() <= -(pCanvas.height * 0.5)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    //#endregion
+
+    addBody(pContext) {
+        this.addChild(new Vector(0, (35 * this.getNumberOfChildren() - 1)));
+        var bodyTranslationMatrix = Matrix.createTranslation(this.getChildAt(this.getNumberOfChildren() - 1));
+        var bodyTransform = new Transform(bodyTranslationMatrix);
+        bodyTransform.addChild(new Geometry(pContext, new Circle(15, '#29a329', '#000000')));
+        this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).addChild(bodyTransform);
     }
 }

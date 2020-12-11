@@ -63,28 +63,7 @@ class Food{
         this.mValue = pValue;
     }
     //#endregion
-
-    updateFood(pDeltaTime) {
-        var newRotation = this.getRotation() + (this.getRotationRate() * pDeltaTime);
-        this.setRotation(newRotation);
-        this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).setTransform(Matrix.createRotation(this.getRotation()));
-
-        var scaleRateVector = new Vector(this.getScaleRate(), this.getScaleRate())
-        if(this.getScaleState() == "Grow") {
-            var newScale = this.getScale().add(scaleRateVector.multiply(pDeltaTime));
-            if(newScale.getX() >= 1.5) {
-                this.setScaleState("Shrink");
-            }
-        }
-        else if(this.getScaleState() == "Shrink") {
-            var newScale = this.getScale().subtract(scaleRateVector.multiply(pDeltaTime));
-            if(newScale.getX() <= 1) {
-                this.setScaleState("Grow");
-            }
-        }
-        this.setScale(newScale);
-        this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(1).setTransform(Matrix.createScale(this.getScale()));
-    }
+    
     initialiseSceneGraph(pContext) {
         var foodTranslationMatrix, foodRotationMatrix, foodScaleMatrix;
 
@@ -123,5 +102,42 @@ class Food{
         foodTransforms.addChild(foodTranslate);
 
         this.setSceneGraph(foodTransforms);
+    }
+
+    updateFood(pDeltaTime) {
+        var newRotation = this.getRotation() + (this.getRotationRate() * pDeltaTime);
+        this.setRotation(newRotation);
+        this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).setTransform(Matrix.createRotation(this.getRotation()));
+
+        var scaleRateVector = new Vector(this.getScaleRate(), this.getScaleRate())
+        if(this.getScaleState() == "Grow") {
+            var newScale = this.getScale().add(scaleRateVector.multiply(pDeltaTime));
+            if(newScale.getX() >= 1.5) {
+                this.setScaleState("Shrink");
+            }
+        }
+        else if(this.getScaleState() == "Shrink") {
+            var newScale = this.getScale().subtract(scaleRateVector.multiply(pDeltaTime));
+            if(newScale.getX() <= 1) {
+                this.setScaleState("Grow");
+            }
+        }
+        this.setScale(newScale);
+        this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(1).setTransform(Matrix.createScale(this.getScale()));
+    }
+
+    foodHeadCollision(pSnake, pCanvas) {
+        if(pSnake.getChildAt(0).getX() >= this.getPosition().getX() && pSnake.getChildAt(0).getX() <= (this.getPosition().getX() + 12.5) && (pSnake.getChildAt(0).getY() >= this.getPosition().getY() && pSnake.getChildAt(0).getY() <= (this.getPosition().getY() + 25))) {
+                var x = Math.random() * ((pCanvas.width - 100) * 0.5 - ((-pCanvas.width + 100) * 0.5)) + ((-pCanvas.width + 100) * 0.5);
+                var y = Math.random() * ((pCanvas.height - 100) * 0.5 - ((-pCanvas.height + 100) * 0.5)) + ((-pCanvas.height + 100) * 0.5);
+                this.setPotistion(new Vector(x, y));
+
+                var foodTranslationMatrix = Matrix.createTranslation(this.getPosition());
+                this.getSceneGraph().getChildAt(0).setTransform(foodTranslationMatrix);
+                return true;
+            }
+        else {
+            return false;
+        }
     }
 }

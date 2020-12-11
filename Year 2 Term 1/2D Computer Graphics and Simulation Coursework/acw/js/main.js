@@ -65,6 +65,10 @@ function onLoad() {
         })
         snake.updatePosition(pDeltaTime);
         food.updateFood(pDeltaTime);
+        if(food.foodHeadCollision(snake, mainCanvas)) {
+            score.updateScore();
+            snake.addBody(mainContext);
+        }
     } 
     function draw() {
         visitor.visit(rootSceneNode);
@@ -84,7 +88,7 @@ function onLoad() {
         }
         draw();
         lastTime = thisTime;
-        if(snake.checkGameOver(mainCanvas) || snake.headBodyCollision()) { 
+        if(snake.checkGameOver(mainCanvas)) { 
             alert("Game Over Man, GAME OVER!" + "\r\n" + "Your Score Was " + score.getScore());
             return;
         }
