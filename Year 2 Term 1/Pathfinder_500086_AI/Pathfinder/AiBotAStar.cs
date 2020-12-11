@@ -13,16 +13,21 @@ namespace Pathfinder
         int mGridSize;
         double[,] mGraph;
         List<Node> mNodes;
+        List<Coord2> mPath;
+        IDictionary<string, Node> mPathTracking;
 
         public AiBotAStar(int x, int y, double[,] pGraphMatrix, int pGridSize) : base(x, y)
         {
             mStartPos = new Coord2(x, y);
             mGraph = pGraphMatrix;
-            mGridSize = pGridSize;      
+            mGridSize = pGridSize;
+            mPath = new List<Coord2>();
+            
         }
         protected override void ChooseNextGridLocation(Level level, Player plr)
         {
             mNodes = new List<Node>();
+            mPathTracking = new Dictionary<string, Node>();
             mTargetPos = plr.GridPosition;
 
             Node startNode = new Node();
@@ -35,6 +40,7 @@ namespace Pathfinder
             startNode.f_n = startNode.g_n + startNode.h_n;
 
             mNodes.Add(startNode);
+            mPathTracking.Add(startNode.index + "-" + startNode.level, startNode);
 
             Node currentNode = startNode;
 
@@ -55,30 +61,50 @@ namespace Pathfinder
                         newNode.f_n = newNode.g_n + newNode.h_n;
 
                         mNodes.Add(newNode);
+
+                        if(mPathTracking.ContainsKey(newNode.index + "-" + newNode.level))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            mPathTracking.Add(newNode.index + "-" + newNode.level, newNode);
+                        }
+                        
                     }
                 }
 
                 mNodes.Remove(currentNode);
-                currentNode = getMinVertex();
-                while(!level.ValidPosition(currentNode.position))
-                {
-                    mNodes.Remove(currentNode);
-                    currentNode = getMinVertex();
-                }
-                SetNextGridPosition(currentNode.position, level);
+                currentNode = getMinVertex(level);
+                //SetNextGridPosition(currentNode.position, level);
                 if (currentNode.position == mTargetPos)
                 {
                     break;
                 }                
             }
+
+            while(currentNode.parent != -1)
+            {
+                mPath.Add(currentNode.position);
+                Node temp;
+                mPathTracking.TryGetValue(currentNode.parent + "-" + (currentNode.level - 1), out temp);
+                currentNode = temp;
+                              
+            }
+
+            for (int i = mPath.Count - 1; i >= 0; i--)
+            {
+                SetNextGridPosition(mPath[i], level);
+            }
+
         }
-            private Node getMinVertex()
+            private Node getMinVertex(Level level)
             {
                 double min = int.MaxValue;
                 Node v = null;
                 foreach (Node n in mNodes)
                 {
-                    if (n.f_n < min)
+                    if (n.f_n < min && level.ValidPosition(n.position))
                     {
                         min = n.f_n;
                         v = n;

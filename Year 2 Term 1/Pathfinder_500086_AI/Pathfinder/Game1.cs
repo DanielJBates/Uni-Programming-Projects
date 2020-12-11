@@ -144,8 +144,14 @@ namespace Pathfinder
                 for (int y = 0; y < sz; y++)
                 {
                     Coord2 pos = new Coord2((x*15), (y*15));
-                    if (level.tiles[x, y] == 0) spriteBatch.Draw(tile1Texture, pos, Color.White);
-                    else spriteBatch.Draw(tile2Texture, pos, Color.White);
+                    if (level.tiles[x, y] == 0)
+                    {
+                        spriteBatch.Draw(tile1Texture, pos, Color.White);
+                    }
+                    else
+                    {
+                        spriteBatch.Draw(tile2Texture, pos, Color.White);
+                    }
                 }
             }
         }
