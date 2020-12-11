@@ -3,7 +3,7 @@ class Snake {
         this.mChildren = [];
 
         this.setMass(1);
-        this.setVelocity(5 / 60);
+        this.setVelocity(new Vector(0, -5 / 60));
         this.setAcceleration(1);
         this.setRotationRate((0.03 * Math.PI/180) / 60)
         this.setPosition(pPosition);
@@ -29,6 +29,27 @@ class Snake {
     }
     setScale(pScale) {
         this.mScale = pScale;
+    }
+    getHeadTranslate() {
+        return this.mHeadTranslate;
+    }
+    setHeadTranslate(pTranslation) {
+        this.mHeadTranslate = pTranslation;
+    }
+    getHeadRotation() {
+        return this.mHeadRotate;
+    }
+    setHeadRotate(pRotation) {
+        this.mHeadRotate = pRotation
+    }
+    getBodyTranslate(pIndex) {
+        return this.mBodyTransforms.getChildAt(pIndex);
+    }
+    getBodyTransforms() {
+        return this.mBodyTransforms;
+    }
+    setBodyTransform(pGroup) {
+        this.mBodyTransforms = pGroup;
     }
     getMass() {
         return this.mMass;
@@ -66,6 +87,9 @@ class Snake {
     getChildAt(pIndex) {
         return this.mChildren[pIndex];
     }
+    setChildAt(pIndex, pVector) {
+        this.mChildren[pIndex] = pVector;
+    }
     addChild(pChild) {
         this.mChildren.push(pChild);
     }
@@ -95,24 +119,28 @@ class Snake {
 
         this.addChild(new Vector(0, 0));
         var headTranslationMatrix = Matrix.createTranslation(this.getChildAt(0));
-        var headTranslate = new Transform(headTranslationMatrix);
+        this.setHeadTranslate(new Transform(headTranslationMatrix));
 
         var headRotationMatrix = Matrix.createRotation(0 * Math.PI/180)
-        var headRotate = new Transform(headRotationMatrix);
-        headTranslate.addChild(headRotate);
+        this.setHeadRotate(new Transform(headRotationMatrix));
+        this.getHeadTranslate().addChild(this.getHeadRotation());
 
-        headRotate.addChild(new Geometry(pContext, new Polygon(headVectorArray, '#29a329', '#000000')));
-        snakeScale.addChild(headTranslate);
+        this.getHeadRotation().addChild(new Geometry(pContext, new Polygon(headVectorArray, '#29a329', '#000000')));
+        snakeScale.addChild(this.getHeadTranslate());
         //#endregion
 
         //#region Body set up
+        var bodyTransforms = new Group();
+        this.setBodyTransform(bodyTransforms);
+
         for(var i = 0; i < 2; i += 1) {
             this.addChild(new Vector(0, 35 * (i + 1)));
             var bodyTranslationMatrix = Matrix.createTranslation(this.getChildAt(i + 1));
             var bodyTransform = new Transform(bodyTranslationMatrix);
             bodyTransform.addChild(new Geometry(pContext, new Circle(15, '#29a329', '#000000')));
-            snakeScale.addChild(bodyTransform);
+            bodyTransforms.addChild(bodyTransform);
         } 
+        snakeScale.addChild(bodyTransforms);
         //#endregion
         var snakeTransforms = new Group();
         snakeTransforms.addChild(snakeTranslate);
@@ -124,30 +152,35 @@ class Snake {
     updateRotation(pDeltaTime, pDirection) {
         if(pDirection == 'right') {
             var newRotation = this.getRotation() + (this.getRotationRate() * pDeltaTime);
-            if(newRotation > (360 * Math.PI/180)) {
-                newRotation = newRotation - (360 * Math.PI/180);
+            if(newRotation > (Math.PI * 2)) {
+                newRotation = newRotation - (Math.PI * 2);
             }
-            this.setRotation(newRotation); 
-            this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).setTransform(Matrix.createRotation(this.getRotation()));
+            this.setRotation(newRotation);
+            var newRotationMatrix = Matrix.createRotation(newRotation);
+            this.getHeadRotation().setTransform(newRotationMatrix);
         }
         else if(pDirection == 'left') {
             var newRotation = this.getRotation() - (this.getRotationRate() * pDeltaTime);
             if(newRotation <  0) {
-                newRotation = newRotation + (360 * Math.PI/180);
+                newRotation = newRotation + (Math.PI * 2);
             }
             this.setRotation(newRotation);
-            this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).setTransform(Matrix.createRotation(this.getRotation()));
+            var newRotationMatrix = Matrix.createRotation(newRotation);
+            this.getHeadRotation().setTransform(newRotationMatrix);
         }
     }
     updatePosition(pDeltaTime) { 
         //#region Head Position Update
-        var newXPosition = ((this.getVelocity() * Math.sin(this.getRotation()) * pDeltaTime));
-        var newYPosition = ((this.getVelocity() * Math.cos(this.getRotation()) * pDeltaTime));
-        
-        this.getChildAt(0).setX(this.getChildAt(0).getX() + newXPosition);
-        this.getChildAt(0).setY(this.getChildAt(0).getY() - newYPosition);
+        var rotatedVelocity = this.getVelocity().rotate(this.getRotation());
+        rotatedVelocity = rotatedVelocity.multiply(pDeltaTime);
 
-        this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(0).setTransform(Matrix.createTranslation(this.getChildAt(0)));
+        var newPosition = this.getChildAt(0).add(rotatedVelocity);
+
+        this.getChildAt(0).setX(newPosition.getX());
+        this.getChildAt(0).setY(newPosition.getY());
+
+        var newTranslationMatrix = Matrix.createTranslation(newPosition);
+        this.getHeadTranslate().setTransform(newTranslationMatrix);
         //#endregion
 
         //#region Body Positions Update
@@ -155,10 +188,9 @@ class Snake {
             var tempVector = this.getChildAt(i).subtract(this.getChildAt(i - 1));
             tempVector = tempVector.normalise();
             var newPosition = this.getChildAt(i - 1).add(tempVector.multiply(35));
-            this.getChildAt(i).setX(newPosition.getX());
-            this.getChildAt(i).setY(newPosition.getY());
+            this.setChildAt(i, newPosition);
 
-            this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).getChildAt(i).setTransform(Matrix.createTranslation(this.getChildAt(i)));       
+            this.getBodyTranslate(i - 1).setTransform(Matrix.createTranslation(this.getChildAt(i)));       
         }
         //#endregion        
     }
@@ -201,6 +233,6 @@ class Snake {
         var bodyTranslationMatrix = Matrix.createTranslation(this.getChildAt(this.getNumberOfChildren() - 1));
         var bodyTransform = new Transform(bodyTranslationMatrix);
         bodyTransform.addChild(new Geometry(pContext, new Circle(15, '#29a329', '#000000')));
-        this.getSceneGraph().getChildAt(0).getChildAt(0).getChildAt(0).addChild(bodyTransform);
+        this.getBodyTransforms().addChild(bodyTransform);
     }
 }

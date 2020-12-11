@@ -127,7 +127,7 @@ class Food{
     }
 
     foodHeadCollision(pSnake, pCanvas) {
-        if(pSnake.getChildAt(0).getX() >= this.getPosition().getX() && pSnake.getChildAt(0).getX() <= (this.getPosition().getX() + 12.5) && (pSnake.getChildAt(0).getY() >= this.getPosition().getY() && pSnake.getChildAt(0).getY() <= (this.getPosition().getY() + 25))) {
+        if(pSnake.getChildAt(0).getX() + 15 >= this.getPosition().getX() - 6.25 && pSnake.getChildAt(0).getX() - 15 <= (this.getPosition().getX() + 6.25) && (pSnake.getChildAt(0).getY() + 15 >= this.getPosition().getY() - 12.5 && pSnake.getChildAt(0).getY() - 15 <= (this.getPosition().getY() + 12.5))) {
                 var x = Math.random() * ((pCanvas.width - 100) * 0.5 - ((-pCanvas.width + 100) * 0.5)) + ((-pCanvas.width + 100) * 0.5);
                 var y = Math.random() * ((pCanvas.height - 100) * 0.5 - ((-pCanvas.height + 100) * 0.5)) + ((-pCanvas.height + 100) * 0.5);
                 this.setPotistion(new Vector(x, y));

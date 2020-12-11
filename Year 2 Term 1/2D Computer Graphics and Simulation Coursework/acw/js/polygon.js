@@ -4,6 +4,8 @@ class Polygon {
         this.setFillColour(pFillColour);
         this.setStrokeColour(pStrokeColour);
     }
+
+    //#region Getters & Setters
     getVectorArray() {
         return this.mVectorArray;
     }
@@ -22,6 +24,8 @@ class Polygon {
     setStrokeColour(pStrokeColour) {
         this.mStrokeColour = pStrokeColour;
     }
+    //#endregion
+    
     draw(pContext) {
         var x, y, vectorArray;
 

@@ -5,7 +5,7 @@ class Geometry extends SceneGraphNode {
         this.setContext(pContext);
         this.setDrawableObject(pDrawableObject);
     }
-
+    //#region Getters & Setters
     getContext() {
         return this.mContext;
     }
@@ -18,6 +18,8 @@ class Geometry extends SceneGraphNode {
     setDrawableObject(pDrawableObject) {
         this.mDrawableObject = pDrawableObject;
     }
+    //#endregion
+    
     draw(pWorldTransformMatrix) {
 
         pWorldTransformMatrix.setTransform(this.getContext());

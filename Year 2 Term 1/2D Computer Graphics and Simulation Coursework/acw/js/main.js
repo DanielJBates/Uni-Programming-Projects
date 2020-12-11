@@ -76,7 +76,7 @@ function onLoad() {
     function gameLoop() {
         var thisTime, deltaTime;
 
-        window.addEventListener('keydown', (event) => {
+        window.addEventListener('keypress', (event) => {
             if(event.key === ' ' || event.key === 'Space') {
                 gameStart = true;
             }

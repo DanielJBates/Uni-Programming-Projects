@@ -3,6 +3,7 @@ class Score {
         this.setPosition(new Vector (500, -325));
         this.setScore(0);
     }
+    //#region Getters & Setters
     getPosition() {
         return this.mPosition;
     }
@@ -15,6 +16,8 @@ class Score {
     setScore(pScore) {
         this.mScore = pScore;
     }
+    //#endregion
+    
     updateScore() {
         this.setScore(this.getScore() + 10);
     }
