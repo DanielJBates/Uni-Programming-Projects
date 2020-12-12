@@ -58,8 +58,8 @@ namespace Pathfinder
             Graph g = new Graph(level);
             double[,] graphMatrix = g.GenerateGraph();
             player = new Player(30, 20);
-            bot = new AiBotAStar(10, 20, player.GridPosition, level, graphMatrix);
-            //bot = new AiBotLRTAStar(10, 20, player.GridPosition, graphMatrix, level.GridSize);
+            //bot = new AiBotAStar(10, 20, player.GridPosition, level, graphMatrix);
+            bot = new AiBotLRTAStar(10, 20, player.GridPosition, graphMatrix, level.GridSize);
             
         }
 

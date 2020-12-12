@@ -17,10 +17,8 @@ namespace Pathfinder
 
         public AiBotLRTAStar(int x, int y, Coord2 pTarget, double[,] pGraphMatrix, int pGridSize) : base(x,y)
         {
-            mStartPos = new Coord2(x, y);
-            
+            mStartPos = new Coord2(x, y);           
             mTargetPos = pTarget;
-
             mGraph = pGraphMatrix;
             mGridSize = pGridSize;
             nodesLRTA = new Dictionary<int, NodeLRTAStar>();
