@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/DBate/Documents/GitHub/Uni-Programming-Projects/Year 2 Term 1/A.I. Coursework/Pathfinder/Content/font.spritefont</SourceFile>
+  <SourceTime>2020-12-12T19:26:26.5997558+00:00</SourceTime>
+  <DestFile>C:/Users/DBate/Documents/GitHub/Uni-Programming-Projects/Year 2 Term 1/A.I. Coursework/Pathfinder/Content/bin/Windows/Content/font.xnb</DestFile>
+  <DestTime>2020-12-12T19:26:28.5100044+00:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
+  <ImporterTime>2018-12-08T16:35:54+00:00</ImporterTime>
+  <Processor>FontDescriptionProcessor</Processor>
+  <ProcessorTime>2018-12-08T16:35:54+00:00</ProcessorTime>
+  <Parameters>
+    <Key>PremultiplyAlpha</Key>
+    <Value>True</Value>
+  </Parameters>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

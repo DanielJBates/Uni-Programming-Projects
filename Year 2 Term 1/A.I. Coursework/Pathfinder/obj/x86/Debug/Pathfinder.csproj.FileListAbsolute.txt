@@ -226,3 +226,4 @@ C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Cour
 C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\obj\x86\Debug\Pathfinder.csproj.CopyComplete
 C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\obj\x86\Debug\Pathfinder.exe
 C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\obj\x86\Debug\Pathfinder.pdb
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\Content\font.xnb

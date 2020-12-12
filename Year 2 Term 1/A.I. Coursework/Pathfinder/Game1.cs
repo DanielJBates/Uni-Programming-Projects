@@ -23,6 +23,7 @@ namespace Pathfinder
     {   
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont font;
 
         //sprite texture for tiles, player, and ai bot
         Texture2D tile1Texture;
@@ -52,13 +53,13 @@ namespace Pathfinder
             TargetElapsedTime = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / TargetFrameRate);
             //load level map
             level = new Level();
-            level.Loadmap("../../../Content/2.txt");
+            level.Loadmap("../../../Content/0.txt");
             //instantiate bot and player objects
             Graph g = new Graph(level);
             double[,] graphMatrix = g.GenerateGraph();
             player = new Player(30, 20);
-            bot = new AiBotAStar(10, 20, player.GridPosition, level, graphMatrix);
-            //bot = new AiBotLRTAStar(10, 20, player.GridPosition, graphMatrix, level.GridSize);
+            //bot = new AiBotAStar(10, 20, player.GridPosition, level, graphMatrix);
+            bot = new AiBotLRTAStar(10, 20, player.GridPosition, graphMatrix, level.GridSize);
             
         }
 
@@ -77,6 +78,7 @@ namespace Pathfinder
             tile2Texture = Content.Load<Texture2D>("tile2");
             aiTexture = Content.Load<Texture2D>("ai");
             playerTexture = Content.Load<Texture2D>("target");
+            font = Content.Load<SpriteFont>("font");
         }
 
         protected override void UnloadContent()
@@ -145,7 +147,7 @@ namespace Pathfinder
             {
                 for (int y = 0; y < sz; y++)
                 {
-                    Coord2 pos = new Coord2((x*15), (y*15));
+                    Coord2 pos = new Coord2((x * 15), (y * 15));
                     if (level.tiles[x, y] == 0)
                     {
                         spriteBatch.Draw(tile1Texture, pos, Color.White);
@@ -153,6 +155,15 @@ namespace Pathfinder
                     else
                     {
                         spriteBatch.Draw(tile2Texture, pos, Color.White);
+                    }
+
+                    int vertex = bot.PositionToVertex(new Coord2(x, y), level.GridSize);
+                    NodeLRTAStar temp;
+                    bot.nodesLRTA.TryGetValue(vertex, out temp);
+
+                    if(temp.stateCost != 0)
+                    {
+                        spriteBatch.DrawString(font, temp.stateCost.ToString(), new Vector2(pos.X, pos.Y), Color.Black);
                     }
                 }
             }

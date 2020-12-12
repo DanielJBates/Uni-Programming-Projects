@@ -34,7 +34,7 @@ namespace Pathfinder
             startNode.level = 0;
             startNode.g_n = 0;
             startNode.position = mStartPos;
-            startNode.index = PositionToVertex(startNode.position);
+            startNode.index = PositionToVertex(startNode.position, mGridSize);
             startNode.h_n = Calculate_h_n(startNode.position, mTargetPos);
             startNode.f_n = startNode.g_n + startNode.h_n;
 
@@ -55,7 +55,7 @@ namespace Pathfinder
                         newNode.g_n = currentNode.g_n + mGraph[currentNode.index, i];
                         newNode.level = currentNode.level + 1;
                         newNode.index = i;
-                        newNode.position = VertexToPosition(i);
+                        newNode.position = VertexToPosition(i, mGridSize);
                         newNode.h_n = Calculate_h_n(newNode.position, mTargetPos);
                         newNode.f_n = newNode.g_n + newNode.h_n;
 
@@ -112,18 +112,6 @@ namespace Pathfinder
                     }
                 }
                 return v;
-            }
-            private int PositionToVertex(Coord2 pPos)
-            {
-                return pPos.Y * mGridSize + pPos.X;
-            }
-            private Coord2 VertexToPosition(int pIndex)
-            {
-                Coord2 Pos;
-                Pos.X = pIndex % mGridSize;
-                Pos.Y = pIndex / mGridSize;
-
-                return Pos;
             }
             private double Calculate_h_n(Coord2 pStart, Coord2 pTarget)
             {

@@ -27,6 +27,8 @@ namespace Pathfinder
         int timerMs;
         const int moveTime = 400; //miliseconds
 
+        public IDictionary<int, NodeLRTAStar> nodesLRTA;
+
         //accessors
         public Coord2 GridPosition
         {
@@ -74,6 +76,19 @@ namespace Pathfinder
             }
             //calculate screen position
             screenPosition = (gridPosition * 15) + ((((targetPosition * 15) - (gridPosition * 15)) * (moveTime - timerMs)) / moveTime);
+        }
+
+        public int PositionToVertex(Coord2 pPos, int pGridSize)
+        {
+            return pPos.Y * pGridSize + pPos.X;
+        }
+        public Coord2 VertexToPosition(int pIndex, int pGridSize)
+        {
+            Coord2 Pos;
+            Pos.X = pIndex % pGridSize;
+            Pos.Y = pIndex / pGridSize;
+
+            return Pos;
         }
 
         //this function is filled in by a derived class: must use SetNextGridLocation to actually move the bot
