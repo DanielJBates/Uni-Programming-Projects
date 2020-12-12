@@ -58,8 +58,8 @@ namespace Pathfinder
             Graph g = new Graph(level);
             double[,] graphMatrix = g.GenerateGraph();
             player = new Player(30, 20);
-            //bot = new AiBotAStar(10, 20, player.GridPosition, level, graphMatrix);
-            bot = new AiBotLRTAStar(10, 20, player.GridPosition, graphMatrix, level.GridSize);
+            bot = new AiBotAStar(10, 20, player.GridPosition, level, graphMatrix);
+            //bot = new AiBotLRTAStar(10, 20, player.GridPosition, graphMatrix, level.GridSize);
             
         }
 
@@ -150,20 +150,38 @@ namespace Pathfinder
                     Coord2 pos = new Coord2((x * 15), (y * 15));
                     if (level.tiles[x, y] == 0)
                     {
-                        spriteBatch.Draw(tile1Texture, pos, Color.White);
+                        if (bot.GetType() == typeof(AiBotAStar))
+                        {
+                            if (bot.mPath.Contains(new Coord2(x, y)))
+                            {
+                                spriteBatch.Draw(tile1Texture, pos, Color.Red);
+                            }
+                            else
+                            {
+                                spriteBatch.Draw(tile1Texture, pos, Color.White);
+                            }
+                        }
+                        else
+                        {
+                            spriteBatch.Draw(tile1Texture, pos, Color.White);
+                        }
                     }
                     else
                     {
                         spriteBatch.Draw(tile2Texture, pos, Color.White);
                     }
 
-                    int vertex = bot.PositionToVertex(new Coord2(x, y), level.GridSize);
-                    NodeLRTAStar temp;
-                    bot.nodesLRTA.TryGetValue(vertex, out temp);
-
-                    if(temp.stateCost != 0)
+                    if (bot.GetType() == typeof(AiBotLRTAStar))
                     {
-                        spriteBatch.DrawString(font, temp.stateCost.ToString(), new Vector2(pos.X, pos.Y), Color.Black);
+                        int vertex = bot.PositionToVertex(new Coord2(x, y), level.GridSize);
+                        NodeLRTAStar temp;
+                        bot.nodesLRTA.TryGetValue(vertex, out temp);
+
+
+                        if (temp.stateCost != 0)
+                        {
+                            spriteBatch.DrawString(font, temp.stateCost.ToString(), new Vector2(pos.X, pos.Y), Color.Black);
+                        }
                     }
                 }
             }

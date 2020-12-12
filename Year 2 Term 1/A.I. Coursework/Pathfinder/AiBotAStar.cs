@@ -13,7 +13,6 @@ namespace Pathfinder
         int mGridSize;
         double[,] mGraph;
         List<NodeAStar> mNodes;
-        List<Coord2> mPath;
         IDictionary<string, NodeAStar> mPathTracking;
 
         public AiBotAStar(int x, int y, Coord2 pTarget, Level pLevel, double[,] pGraphMatrix) : base(x, y)

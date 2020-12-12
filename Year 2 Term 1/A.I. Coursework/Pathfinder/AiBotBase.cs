@@ -28,6 +28,7 @@ namespace Pathfinder
         const int moveTime = 400; //miliseconds
 
         public IDictionary<int, NodeLRTAStar> nodesLRTA;
+        public List<Coord2> mPath;
 
         //accessors
         public Coord2 GridPosition
