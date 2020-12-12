@@ -47,7 +47,8 @@
     <Compile Include="Coord2.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="level.cs" />
-    <Compile Include="Node.cs" />
+    <Compile Include="NodeAStar.cs" />
+    <Compile Include="NodeLRTAStar.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

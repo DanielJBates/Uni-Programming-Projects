@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 
 namespace Pathfinder
 {
-    class Node
+    class NodeLRTAStar
     {
-        public int parent;
         public Coord2 position;
         public int index;
-        public double f_n;
-        public double g_n;
-        public double h_n;
-        public int level;
+        public double stateCost;
     }
 }

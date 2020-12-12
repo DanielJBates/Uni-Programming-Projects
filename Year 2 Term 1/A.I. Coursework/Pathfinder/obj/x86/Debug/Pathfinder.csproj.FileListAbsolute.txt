@@ -194,3 +194,35 @@ C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\Pathfinde
 C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\Pathfinder_500086_AI\Pathfinder\obj\x86\Debug\Pathfinder.csproj.CopyComplete
 C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\Pathfinder_500086_AI\Pathfinder\obj\x86\Debug\Pathfinder.exe
 C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\Pathfinder_500086_AI\Pathfinder\obj\x86\Debug\Pathfinder.pdb
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\Content\0.txt
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\Content\1.txt
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\Content\2.txt
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\Content\3.txt
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\Content\4.txt
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\Content\ai.xnb
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\Content\target.xnb
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\Content\tile1.xnb
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\Content\tile2.xnb
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\Pathfinder.exe
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\Pathfinder.pdb
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\MonoGame.Framework.dll
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\SharpDX.dll
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\SharpDX.XInput.dll
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\MonoGame.Framework.xml
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\SharpDX.xml
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\bin\Windows\x86\Debug\SharpDX.XInput.xml
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\obj\x86\Debug\Pathfinder.csprojAssemblyReference.cache
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\obj\x86\Debug\Pathfinder.csproj.CoreCompileInputs.cache
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\obj\x86\Debug\Pathfinder.csproj.CopyComplete
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\obj\x86\Debug\Pathfinder.exe
+C:\Users\DBate\Documents\GitHub\Uni-Programming-Projects\Year 2 Term 1\A.I. Coursework\Pathfinder\obj\x86\Debug\Pathfinder.pdb

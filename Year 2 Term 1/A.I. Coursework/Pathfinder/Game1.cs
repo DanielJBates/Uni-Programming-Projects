@@ -52,12 +52,14 @@ namespace Pathfinder
             TargetElapsedTime = TimeSpan.FromTicks(TimeSpan.TicksPerSecond / TargetFrameRate);
             //load level map
             level = new Level();
-            level.Loadmap("../../../Content/1.txt");
+            level.Loadmap("../../../Content/2.txt");
             //instantiate bot and player objects
             Graph g = new Graph(level);
             double[,] graphMatrix = g.GenerateGraph();
-            bot = new AiBotAStar(10, 20, graphMatrix, level.GridSize); //new AiBotRandom(10, 20);
             player = new Player(30, 20);
+            bot = new AiBotAStar(10, 20, player.GridPosition, level, graphMatrix);
+            //bot = new AiBotLRTAStar(10, 20, player.GridPosition, graphMatrix, level.GridSize);
+            
         }
 
         protected override void Initialize()
