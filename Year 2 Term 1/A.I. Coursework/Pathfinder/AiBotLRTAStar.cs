@@ -55,19 +55,21 @@ namespace Pathfinder
         {
             double min = int.MaxValue;
             List<int> minVertex = new List<int>();
+            NodeLRTAStar temp;
 
             for (int i = 0; i < mGraph.GetLength(0); i++)
             {
+                nodesLRTA.TryGetValue(i, out temp);
                 if (mGraph[pIndex, i] >= 1)
                 {
-                    if (min >= mGraph[pIndex, i])
+                    if (min >= mGraph[pIndex, i] + temp.stateCost)
                     {
-                        if (min > mGraph[pIndex, i])
+                        if (min > mGraph[pIndex, i] + temp.stateCost)
                         {
                             minVertex.Clear();
                         }
                         minVertex.Add(i);
-                        min = mGraph[pIndex, i];
+                        min = mGraph[pIndex, i] + temp.stateCost;
                     }
                 }
             }
@@ -91,7 +93,7 @@ namespace Pathfinder
         {
             NodeLRTAStar temp;
             nodesLRTA.TryGetValue(pCurrentVertex, out temp);
-            temp.stateCost += mGraph[pCurrentVertex, pNextVertex];
+            temp.stateCost += mGraph[pNextVertex, pCurrentVertex];
 
             nodesLRTA[pCurrentVertex] = temp;
         }
